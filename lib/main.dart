@@ -193,21 +193,18 @@ class PiePainter extends CustomPainter {
     final hostelBrush = Paint()
       ..color = hostelArcColor
       ..style = PaintingStyle.stroke
-      ..strokeJoin = StrokeJoin.miter
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 40;
 
     final foodBrush = Paint()
       ..color = foodArcColor
       ..style = PaintingStyle.stroke
-      ..strokeJoin = StrokeJoin.miter
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 40;
 
     final othersBrush = Paint()
       ..color = othersArcColor
       ..style = PaintingStyle.stroke
-      ..strokeJoin = StrokeJoin.miter
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 40;
 
