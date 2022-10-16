@@ -54,44 +54,79 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          children: const [
-            Text(
-              "December",
-              style: TextStyle(
-                fontSize: 21,
-                fontWeight: FontWeight.w700,
-              ),
-              ),
-              Expanded(child: SizedBox()),
-              Text(
-              "Rs. 687",
-              style: TextStyle(
-                fontSize: 21,
-                fontWeight: FontWeight.w700,
-              ),
+          children: [
+            const Expanded(child: SizedBox()),
+            IconButton(
+              icon: const CircleAvatar(
+                radius: 20,
+                backgroundColor: Color(0xff7326fb),
+                child: Icon(Icons.add, color: Colors.white),
+                ),
+              onPressed: () => {},
             ),
-          ],
+          ]
         ),
       ),
       body: Column(
         children: [
           Container(
+            padding: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
+            child: Row(
+            children: const [
+              Text(
+                "December",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                   color: Colors.white,
+                ),
+                ),
+                Expanded(child: SizedBox()),
+                Text(
+                "Rs. 687",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+        ),
+          ),
+          Container(
             alignment: Alignment.center,
             child: const CustomPieChart(),
           ),
-          Expanded(child: ListView(
+          const Expanded(child: SizedBox()),
+          Expanded(child: Column(
                   children: const [
                     ListTile(
+                      leading: CircleAvatar(
+                        radius: 22,
+                        backgroundColor: Color(0xff543ee3),
+                        child: Icon(Icons.food_bank, color: Colors.white),
+                      ),
                       title: Text('Food and Drinks', style: TextStyle(color: Color(0xffd5d5d5))),
                       subtitle: Text('12 Transactions', style: TextStyle(color: Color(0xff75757a))),
                       trailing: Text('Rs. 280', style: TextStyle(color: Color(0xffd6d7d6))),
                     ),
                     ListTile(
+                      leading: CircleAvatar(
+                        radius: 22,
+                        backgroundColor: Color(0xffd05af8),
+                        child: Icon(Icons.radio, color: Colors.white),
+                      ),
                       title: Text('Entertainment', style: TextStyle(color: Color(0xffd5d5d5))),
                       subtitle: Text('5 Transactions', style: TextStyle(color: Color(0xff75757a))),
                       trailing: Text('Rs. 150', style: TextStyle(color: Color(0xffd6d7d6))),
                     ),
                     ListTile(
+                      leading: CircleAvatar(
+                        radius: 22,
+                        backgroundColor: Color(0xfff9ae68),
+                        child: Icon(Icons.checkroom, color: Colors.white),
+                      ),
                       title: Text('Clothes and others', style: TextStyle(color: Color(0xffd5d5d5))),
                       subtitle: Text('12 Transactions', style: TextStyle(color: Color(0xff75757a))),
                       trailing: Text('Rs. 300', style: TextStyle(color: Color(0xffd6d7d6))),
