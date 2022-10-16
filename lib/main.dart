@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:math' as math;
 
 void main() {
   runApp(const MyApp());
@@ -72,9 +73,84 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: const Center(
-        child: SizedBox(),
+      body: Container(
+        alignment: Alignment.center,
+        child: const CustomPieChart(),
       ),
     );
+  }
+}
+
+int hostel=200, food=100, others=50;
+
+class CustomPieChart extends StatefulWidget {
+  const CustomPieChart({super.key});
+
+  @override
+  State<CustomPieChart> createState() => _CustomPieChartState();
+}
+
+class _CustomPieChartState extends State<CustomPieChart> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 300,
+      height: 300,
+      child: CustomPaint(
+        painter: PiePainter(),
+      ),
+    );
+  }
+}
+
+class PiePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var totalCost = hostel + food + others;
+
+    var hostelStartAngle = 5*math.pi/12;
+    var hostelSweepAngle = (hostel/totalCost) * 2*math.pi;
+    var hostelArcColor = const Color(0xff6c57fa);
+
+    var foodStartAngle = hostelStartAngle + hostelSweepAngle;
+    var foodSweepAngle = (food/totalCost) * 2*math.pi;
+    var foodArcColor = const Color(0xffd266f9);
+
+    var othersStartAngle = foodStartAngle + foodSweepAngle;
+    var othersSweepAngle = (others/totalCost) * 2*math.pi;
+    var othersArcColor = const Color(0xfff2a259);
+
+    var centerX = size.width / 2;
+    var centerY = size.height / 2;
+    var center = Offset(centerX, centerY);
+    // var radius = math.min(centerX, centerY);
+
+    // var myRect = const Rect.fromLTRB(0, 0, 200, 200);
+    var myRect = Rect.fromCircle(center: center, radius: 100);
+
+    final hostelBrush = Paint()
+      ..color = hostelArcColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 90;
+
+    final foodBrush = Paint()
+      ..color = foodArcColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 90;
+
+    final othersBrush = Paint()
+      ..color = othersArcColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 90;
+
+    canvas.drawArc(myRect, hostelStartAngle, hostelSweepAngle, false, hostelBrush);
+    canvas.drawArc(myRect, foodStartAngle, foodSweepAngle, false, foodBrush);
+    canvas.drawArc(myRect, othersStartAngle, othersSweepAngle, false, othersBrush);
+
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }
