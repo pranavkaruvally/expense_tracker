@@ -73,15 +73,39 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: const CustomPieChart(),
+      body: Column(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            child: const CustomPieChart(),
+          ),
+          Expanded(child: ListView(
+                  children: const [
+                    ListTile(
+                      title: Text('Food and Drinks', style: TextStyle(color: Color(0xffd5d5d5))),
+                      subtitle: Text('12 Transactions', style: TextStyle(color: Color(0xff75757a))),
+                      trailing: Text('Rs. 280', style: TextStyle(color: Color(0xffd6d7d6))),
+                    ),
+                    ListTile(
+                      title: Text('Entertainment', style: TextStyle(color: Color(0xffd5d5d5))),
+                      subtitle: Text('5 Transactions', style: TextStyle(color: Color(0xff75757a))),
+                      trailing: Text('Rs. 150', style: TextStyle(color: Color(0xffd6d7d6))),
+                    ),
+                    ListTile(
+                      title: Text('Clothes and others', style: TextStyle(color: Color(0xffd5d5d5))),
+                      subtitle: Text('12 Transactions', style: TextStyle(color: Color(0xff75757a))),
+                      trailing: Text('Rs. 300', style: TextStyle(color: Color(0xffd6d7d6))),
+                    ),
+                  ]
+                ),
+          ),
+        ],
       ),
     );
   }
 }
 
-int hostel=200, food=100, others=50;
+int hostel=180, food=100, others=80;
 
 class CustomPieChart extends StatefulWidget {
   const CustomPieChart({super.key});
@@ -108,16 +132,18 @@ class PiePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     var totalCost = hostel + food + others;
 
+    var pieGap = math.pi * 0.15;
+
     var hostelStartAngle = 5*math.pi/12;
-    var hostelSweepAngle = (hostel/totalCost) * 2*math.pi;
+    var hostelSweepAngle = (hostel/totalCost) * 2*math.pi - pieGap;
     var hostelArcColor = const Color(0xff6c57fa);
 
-    var foodStartAngle = hostelStartAngle + hostelSweepAngle;
-    var foodSweepAngle = (food/totalCost) * 2*math.pi;
+    var foodStartAngle = hostelStartAngle + hostelSweepAngle + pieGap;
+    var foodSweepAngle = (food/totalCost) * 2*math.pi - pieGap;
     var foodArcColor = const Color(0xffd266f9);
 
-    var othersStartAngle = foodStartAngle + foodSweepAngle;
-    var othersSweepAngle = (others/totalCost) * 2*math.pi;
+    var othersStartAngle = foodStartAngle + foodSweepAngle + pieGap;
+    var othersSweepAngle = (others/totalCost) * 2*math.pi - pieGap;
     var othersArcColor = const Color(0xfff2a259);
 
     var centerX = size.width / 2;
@@ -127,26 +153,32 @@ class PiePainter extends CustomPainter {
 
     // var myRect = const Rect.fromLTRB(0, 0, 200, 200);
     var myRect = Rect.fromCircle(center: center, radius: 100);
+    // var myRoundedRect = RRect.fromRectAndRadius(myRect, const Radius.circular(2));
 
     final hostelBrush = Paint()
       ..color = hostelArcColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 90;
+      ..strokeJoin = StrokeJoin.miter
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 40;
 
     final foodBrush = Paint()
       ..color = foodArcColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 90;
+      ..strokeJoin = StrokeJoin.miter
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 40;
 
     final othersBrush = Paint()
       ..color = othersArcColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 90;
+      ..strokeJoin = StrokeJoin.miter
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 40;
 
     canvas.drawArc(myRect, hostelStartAngle, hostelSweepAngle, false, hostelBrush);
     canvas.drawArc(myRect, foodStartAngle, foodSweepAngle, false, foodBrush);
     canvas.drawArc(myRect, othersStartAngle, othersSweepAngle, false, othersBrush);
-
   }
 
   @override
